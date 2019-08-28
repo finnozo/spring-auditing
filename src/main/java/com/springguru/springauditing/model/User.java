@@ -8,8 +8,6 @@ import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import java.util.HashSet;
 import java.util.Set;
@@ -19,7 +17,7 @@ import java.util.Set;
 @Setter
 @Getter
 @NoArgsConstructor
-public class User {
+public class User extends BaseAudit<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -66,10 +64,4 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    public User(String name, String username, String email, String password) {
-        this.name = name;
-        this.username = username;
-        this.email = email;
-        this.password = password;
-    }
 }
