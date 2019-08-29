@@ -5,10 +5,13 @@ import com.springguru.springauditing.security.UserPrincipal;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class AuditorAwareImpl implements AuditorAware<Long> {
+
 
     private Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
@@ -21,12 +24,14 @@ public class AuditorAwareImpl implements AuditorAware<Long> {
     }*/
 
     private User getCurrentUser() {
+
         return ((UserPrincipal) authentication.getPrincipal()).getUser();
     }
 
     @Override
     public Optional<Long> getCurrentAuditor() {
         //return Optional.empty();
+        System.err.println(authentication);
 
         if (authentication == null || !authentication.isAuthenticated()) {
             return Optional.of(0L);

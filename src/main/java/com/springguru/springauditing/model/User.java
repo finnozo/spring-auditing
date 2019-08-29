@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
@@ -17,6 +18,7 @@ import java.util.Set;
 @Setter
 @Getter
 @NoArgsConstructor
+@ToString
 public class User extends BaseAudit<Long> {
 
     @Id

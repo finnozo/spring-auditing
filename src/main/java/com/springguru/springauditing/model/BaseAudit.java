@@ -36,10 +36,10 @@ public abstract class BaseAudit<U> implements Serializable {
     private LocalDateTime modifiedDate;
 
     @Column(name = "created_by")
-    @CreatedBy()
+    @CreatedBy
     private U createdBy;
 
     @Column(name = "modified_by")
-    @LastModifiedBy()
+    @LastModifiedBy
     private U modifiedBy;
 }
