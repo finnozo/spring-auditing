@@ -45,21 +45,29 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                /*.csrf().disable()*/
+                .csrf().disable()
+                //.cors().disable()
                 .authorizeRequests()
-                .antMatchers("/")
-                .hasAnyRole("ADMIN")
+                .antMatchers("/admin/**").hasAuthority("ADMIN")
+                .antMatchers("/api/**").hasAuthority("CUSTOMER")
+                .antMatchers("/subscription/**").hasAuthority("SUBSCRIBER")
+                .antMatchers("/").permitAll()
+                .antMatchers("/logout/**").permitAll()
+                .antMatchers("/home/**").permitAll()
+                .antMatchers("/auth/**").permitAll()
+                .anyRequest()
+                .authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/showMyLoginPage")
-                .loginProcessingUrl("/authenticateTheUser")
-                .permitAll()
+                .loginPage("/auth/showMyLoginPage")
+                .loginProcessingUrl("/auth/authenticateTheUser")
+                .defaultSuccessUrl("/home")
                 .and()
                 .logout()
                 .permitAll()
                 .and()
                 .exceptionHandling()
-                .accessDeniedPage("/access-denied");
+                .accessDeniedPage("/auth/access-denied");
     }
 
 

@@ -13,7 +13,7 @@ import java.util.Optional;
 public class AuditorAwareImpl implements AuditorAware<Long> {
 
 
-    private Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
 
     /*@Override
     public Optional<User> getCurrentAuditor() {
@@ -24,18 +24,16 @@ public class AuditorAwareImpl implements AuditorAware<Long> {
     }*/
 
     private User getCurrentUser() {
-
-        return ((UserPrincipal) authentication.getPrincipal()).getUser();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return ((UserPrincipal) auth.getPrincipal()).getUser();
     }
 
     @Override
     public Optional<Long> getCurrentAuditor() {
-        //return Optional.empty();
-        System.err.println(authentication);
-
-        if (authentication == null || !authentication.isAuthenticated()) {
+        User currentUser = getCurrentUser();
+        if (currentUser == null) {
             return Optional.of(0L);
         }
-        return Optional.of(getCurrentUser().getId());
+        return Optional.of(currentUser.getId());
     }
 }

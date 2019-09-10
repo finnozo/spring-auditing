@@ -19,8 +19,8 @@ public class Role {
     @Column(name = "id", updatable = false, nullable = false, unique = true)
     private Long id;
 
-    @Enumerated(EnumType.STRING)
-    @NaturalId
+   /* @Enumerated(EnumType.STRING)
+    @NaturalId*/
     @Column(length = 60, name = "name")
-    private RoleName name;
+    private String name;
 }

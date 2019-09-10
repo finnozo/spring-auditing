@@ -21,10 +21,9 @@ public class PersonController {
         this.personRepository = personRepository;
     }
 
-    @PostMapping(value = {"person", "person/"})
+    @PostMapping(value = {"/person", "/person/"})
     public ResponseEntity<?> createPerson(@Valid @RequestBody PersonPayload personPayload,
                                           BindingResult result) {
-        System.err.println(personPayload);
         if (result.hasErrors()) {
             return new ResponseEntity<>(result.getAllErrors().get(0), HttpStatus.BAD_REQUEST);
         }
